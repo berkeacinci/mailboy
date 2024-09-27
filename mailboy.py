@@ -1,30 +1,31 @@
 import smtplib
+import json
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
-def send_bulk_email(sender_email, sender_password, recipients, subject, body):
-    # Set up the SMTP server for Outlook
-    smtp_server = "smtp-mail.outlook.com"
-    port = 587  # For starttls
+def load_config(file_path):
+    with open(file_path, 'r') as config_file:
+        return json.load(config_file)
 
-    # Create a secure SSL context
-    server = smtplib.SMTP(smtp_server, port)
+def send_bulk_email(config, subject, body):
+    # Set up the SMTP server
+    server = smtplib.SMTP(config['smtp_server'], config['smtp_port'])
     server.starttls()
 
     try:
         # Login to the email account
-        server.login(sender_email, sender_password)
+        server.login(config['sender_email'], config['sender_password'])
 
         # Create the email message
         message = MIMEMultipart()
-        message["From"] = sender_email
+        message["From"] = config['sender_email']
         message["Subject"] = subject
 
         # Attach the body of the email
         message.attach(MIMEText(body, "plain"))
 
         # Send the email to all recipients
-        for recipient in recipients:
+        for recipient in config['recipients']:
             message["To"] = recipient
             server.send_message(message)
             print(f"Email sent to {recipient}")
@@ -37,9 +38,8 @@ def send_bulk_email(sender_email, sender_password, recipients, subject, body):
 
 # Example usage
 if __name__ == "__main__":
-    sender_email = "your_email@gmail.com"
-    sender_password = "your_password"  # Use an app-specific password for better security
-    recipients = ["client1@example.com", "client2@example.com", "client3@example.com"]
+    config = load_config('config.json')
+    
     subject = "Important Update"
     body = """
     Dear valued client,
@@ -50,4 +50,4 @@ if __name__ == "__main__":
     Your Company
     """
 
-    send_bulk_email(sender_email, sender_password, recipients, subject, body)
+    send_bulk_email(config, subject, body)
