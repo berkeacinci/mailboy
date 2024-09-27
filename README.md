@@ -1,5 +1,7 @@
 # Mailboy
 
+**IMPORTANT: Please read this entire README file before using Mailboy. It contains crucial information for setup and usage.**
+
 Mailboy is an automated email sender that allows you to easily send bulk emails to multiple recipients. It's designed to be flexible, user-friendly, and efficient for sending newsletters, updates, or any other type of mass communication.
 
 ## Features
@@ -20,17 +22,20 @@ Mailboy is an automated email sender that allows you to easily send bulk emails 
 
 ### Steps
 
-1. Clone this repository:
+1. Create a folder named 'bots' (or any name you prefer) on your computer and open it in your code editor (e.g., VS Code, PyCharm, Cursor).
+
+2. Open terminal and clone this repository by running the following commands:
    ```
-   git clone https://github.com/yourusername/mailboy.git
+   git clone https://github.com/berkeacinci/mailboy.git
    cd mailboy
    ```
+   # Note: You might need to log in to your GitHub account first.
 
-2. Create a virtual environment:
+3. Create a virtual environment (venv) and activate it:
 
    - On Windows:
      ```
-     python -m venv venv
+     python -m venv venv 
      venv\Scripts\activate
      ```
 
@@ -39,13 +44,13 @@ Mailboy is an automated email sender that allows you to easily send bulk emails 
      python3 -m venv venv
      source venv/bin/activate
      ```
+   # A virtual environment helps isolate your project dependencies from other Python projects.
 
-3. Install the required dependencies:
+4. Install the required dependencies:
    ```
    pip install -r requirements.txt
    ```
-
-This will install all necessary packages listed in the `requirements.txt` file.
+   # This command installs all necessary packages listed in the `requirements.txt` file.
 
 ## Configuration
 
@@ -55,7 +60,7 @@ This will install all necessary packages listed in the `requirements.txt` file.
      "sender_email": "your_email@example.com",
      "sender_password": "your_password_or_app_password",
      "smtp_server": "smtp.example.com",
-     "smtp_port": 587,
+     "smtp_port": 587, 
      "recipients": [
        "client1@example.com",
        "client2@example.com",
@@ -63,6 +68,13 @@ This will install all necessary packages listed in the `requirements.txt` file.
      ]
    }
    ```
+   
+   # Important notes for beginners:
+   # - "sender_email": Your email address that you'll use to send emails
+   # - "sender_password": For Gmail and Outlook, you'll need to use an app password
+   # - "smtp_server": Use "smtp.gmail.com" for Gmail, "smtp-mail.outlook.com" for Outlook
+   # - "smtp_port": 587 is a common port for TLS encryption
+   # - "recipients": List of email addresses you want to send to
    
    **Important:** Keep your `config.json` file secure and never commit it to version control, as it contains sensitive information.
 
@@ -82,7 +94,7 @@ This will install all necessary packages listed in the `requirements.txt` file.
    Best regards,
    Your Name
    ```
-
+   # The {name} placeholder will be replaced with the recipient's name.
 ## File Structure
 
 Your project directory should look like this:
