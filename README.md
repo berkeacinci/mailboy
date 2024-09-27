@@ -45,6 +45,8 @@ Mailboy is an automated email sender that allows you to easily send bulk emails 
    pip install -r requirements.txt
    ```
 
+This will install all necessary packages listed in the `requirements.txt` file.
+
 ## Configuration
 
 1. In the project root directory, create a `config.json` file with the following structure:
