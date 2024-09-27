@@ -7,17 +7,32 @@ from email.mime.multipart import MIMEMultipart
 import logging
 from tqdm import tqdm
 import time
+import sys
 
 def load_config(file_path):
-    with open(file_path, 'r') as config_file:
-        return json.load(config_file)
+    try:
+        with open(file_path, 'r') as config_file:
+            return json.load(config_file)
+    except FileNotFoundError:
+        print(f"Error: Config file '{file_path}' not found.")
+        sys.exit(1)
+    except json.JSONDecodeError:
+        print(f"Error: Invalid JSON in config file '{file_path}'.")
+        sys.exit(1)
 
 def load_email_content(file_path):
-    with open(file_path, 'r') as content_file:
-        lines = content_file.readlines()
-        subject = lines[0].strip().replace('Subject: ', '')
-        body = ''.join(lines[2:])  # Skip the blank line after subject
-    return subject, body
+    try:
+        with open(file_path, 'r') as content_file:
+            lines = content_file.readlines()
+            if len(lines) < 3:
+                print(f"Error: Email template file '{file_path}' is not properly formatted.")
+                sys.exit(1)
+            subject = lines[0].strip().replace('Subject: ', '')
+            body = ''.join(lines[2:])  # Skip the blank line after subject
+        return subject, body
+    except FileNotFoundError:
+        print(f"Error: Email template file '{file_path}' not found.")
+        sys.exit(1)
 
 def personalize_email(body, recipient):
     # Simple personalization example
