@@ -1,4 +1,4 @@
-## This is an example email content file.
+## This is an example email content file. (Delete this line before using)
 
 Subject: Important Update
 
