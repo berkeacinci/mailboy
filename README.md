@@ -52,9 +52,9 @@ This will install all necessary packages listed in the `requirements.txt` file.
 1. In the project root directory, create a `config.json` file with the following structure:
    ```json
    {
-     "sender_email": "your_email@outlook.com",
-     "sender_password": "your_password",
-     "smtp_server": "smtp-mail.outlook.com",
+     "sender_email": "your_email@example.com",
+     "sender_password": "your_password_or_app_password",
+     "smtp_server": "smtp.example.com",
      "smtp_port": 587,
      "recipients": [
        "client1@example.com",
@@ -63,6 +63,8 @@ This will install all necessary packages listed in the `requirements.txt` file.
      ]
    }
    ```
+   
+   **Important:** Keep your `config.json` file secure and never commit it to version control, as it contains sensitive information.
 
 2. Email Content:
    - A sample `email_content.txt` file is provided in the repository.
@@ -110,8 +112,7 @@ python mailboy.py [options]
 
 - `--config`: Specify a custom config file (default: `config.json`)
 - `--template`: Specify a custom email template file (default: `email_content.txt`)
-- `--dry-run`: Perform a dry run without sending actual emails
-
+- `--dry-run`: Perform a dry run without sending actual emails. This is useful for testing your configuration and email content without actually sending emails.
 ### Examples:
 
 1. Send emails using default config and template:
@@ -152,10 +153,21 @@ You can personalize your emails by using `{name}` in your email template. This w
 
 All email sending activities are logged in `email_log.txt` in the project directory.
 
+## SMTP Services
+
+If you're having trouble with your email provider's SMTP server, you might consider using a third-party SMTP service. These services often provide better deliverability and are designed for bulk sending. Some options include:
+
+- SMTP2GO
+- SendinBlue
+- Mailgun
+
+To use these services, you'll need to sign up for an account and update your `config.json` file with the provided SMTP server details.
+
 ## Troubleshooting
 
-- If you encounter SMTP authentication errors, make sure your email provider allows less secure apps or generate an app-specific password.
-- For Outlook users, you may need to enable IMAP in your account settings.
+- If you encounter SMTP authentication errors, you may need to use an app-specific password or enable two-factor authentication for your email account.
+- For Microsoft accounts (Outlook, Hotmail, Live, etc.), you might need to use an app password or switch to a different SMTP service as Microsoft has disabled basic authentication for many accounts.
+- If you're using a work or school account, contact your IT administrator as they may need to enable SMTP AUTH for your organization.
 
 ## Caution
 
