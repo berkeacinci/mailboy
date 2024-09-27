@@ -1,0 +1,10 @@
+## This is an example email content file.
+
+Subject: Important Update
+
+Dear valued client,
+
+This is an automated message to inform you about...
+
+Best regards,
+Your Company

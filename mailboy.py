@@ -7,6 +7,13 @@ def load_config(file_path):
     with open(file_path, 'r') as config_file:
         return json.load(config_file)
 
+def load_email_content(file_path):
+    with open(file_path, 'r') as content_file:
+        lines = content_file.readlines()
+        subject = lines[0].strip().replace('Subject: ', '')
+        body = ''.join(lines[2:])  # Skip the blank line after subject
+    return subject, body
+
 def send_bulk_email(config, subject, body):
     # Set up the SMTP server
     server = smtplib.SMTP(config['smtp_server'], config['smtp_port'])
@@ -39,15 +46,5 @@ def send_bulk_email(config, subject, body):
 # Example usage
 if __name__ == "__main__":
     config = load_config('config.json')
-    
-    subject = "Important Update"
-    body = """
-    Dear valued client,
-
-    This is an automated message to inform you about...
-
-    Best regards,
-    Your Company
-    """
-
+    subject, body = load_email_content('email_content.txt')
     send_bulk_email(config, subject, body)
