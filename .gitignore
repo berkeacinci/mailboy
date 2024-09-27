@@ -1,3 +1,5 @@
 config.json
 
 venv/
+
+email_log.txt

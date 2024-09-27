@@ -36,16 +36,13 @@ def send_bulk_email(config, subject, body, dry_run=False):
         # Login to the email account
         server.login(config['sender_email'], config['sender_password'])
 
-        # Create the email message template
-        message_template = MIMEMultipart()
-        message_template["From"] = config['sender_email']
-        message_template["Subject"] = subject
-
         # Send the email to all recipients
         for recipient in tqdm(config['recipients'], desc="Sending emails"):
             try:
-                message = message_template.copy()
+                message = MIMEMultipart()
+                message["From"] = config['sender_email']
                 message["To"] = recipient
+                message["Subject"] = subject
                 
                 # Personalize the body
                 personalized_body = personalize_email(body, recipient)
