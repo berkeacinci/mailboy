@@ -127,7 +127,7 @@ python mailboy.py [options]
 
 3. Perform a dry run:
    ```
-   python mailboy.py --dry-run
+   python mailboy.py --dry-run or python mailboy.py --dry-run --config config.json --template monthly_update.txt   
    ```
 
 ### Working with Email Templates
